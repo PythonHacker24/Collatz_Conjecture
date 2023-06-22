@@ -68,23 +68,49 @@ sum = 0
 for i in range(len(history_array)):
 	sum += history_array[i]
 
-average = sum/len(history_array)
+outcome_average = sum/len(history_array)
+
+print("Average of every outcome value: " + str(outcome_average))
 
 average_list = []
 for i in range(len(counter_timer)):
-	average_list.append(average)
+	average_list.append(outcome_average)
 
-print("Average: " + str(average))
+#heads = 0
+#tails = 0
+sum = 0
 
-style.use('dark_background')
-plt.plot(counter_timer, history_array)
-plt.plot(counter_timer, average_list)
+for num in history_array:
+	first_digit = int(str(num)[0])
+	sum = sum + first_digit
 
-plt.xlabel('Steps')
-plt.ylabel('Value at each Step')
-plt.title('The Collatz Conjecture')
+print("Average of first digits: " + str(sum/len(history_array)))
 
-plt.show()
+	# Heads and Tails logic
+	# if first_digit == 5:
+	# 	continue
+	# elif first_digit > 5:
+	# 	heads += 1
+	# elif first_digit < 5:
+	# 	tails += 1
+
+#outcomes = heads + tails
+#print("Outcomes = " + str(outcomes))
+
+#print("Heads outcomes = " + str(heads/outcomes))
+
+# Uncomment to plot the Graph
+# print("Average: " + str(average))
+
+# style.use('dark_background')
+# plt.plot(counter_timer, history_array)
+# plt.plot(counter_timer, average_list)
+
+# plt.xlabel('Steps')
+# plt.ylabel('Value at each Step')
+# plt.title('The Collatz Conjecture')
+
+# plt.show()
 
 """ 
 
