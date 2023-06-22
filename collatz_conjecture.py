@@ -64,8 +64,21 @@ interval = float(input("Enter the interval to between computations: "))
 history_depth = 50
 history_array, counter_timer = operation(num, interval, history_depth)
 
+sum = 0
+for i in range(len(history_array)):
+	sum += history_array[i]
+
+average = sum/len(history_array)
+
+average_list = []
+for i in range(len(counter_timer)):
+	average_list.append(average)
+
+print("Average: " + str(average))
+
 style.use('dark_background')
 plt.plot(counter_timer, history_array)
+plt.plot(counter_timer, average_list)
 
 plt.xlabel('Steps')
 plt.ylabel('Value at each Step')
