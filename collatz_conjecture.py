@@ -72,7 +72,7 @@ hash_file = open("hash", "w")
 hash_file.write(binaryhash)
 hash_file.close()
 
-#print(binaryhash)
+print(binaryhash)
 print("Length of hash: " + str(len(binaryhash)))
 
 one  = 0
@@ -90,9 +90,6 @@ print(one_prob)
 style.use('dark_background')
 plt.plot([i for i in range(1,compute_value)], average_values_outcomes)
 plt.show()
-
-
-
 
 # Uncomment to plot the Graph
 # print("Average: " + str(average))
