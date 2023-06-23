@@ -3,24 +3,13 @@
 import time
 import matplotlib.pyplot as plt
 from matplotlib import style
+import psutil
 
 def check(num):
 	if num % 2 == 0:
 		return 1
 	else:
 		return 0
-
-def loop_detector(history_array, check_num, history_depth, counter):
-	if counter <= history_depth:
-		init_pointer = 0
-	if counter > history_depth:
-		init_pointer = counter - history_depth
-
-	for i in range(init_pointer, counter):
-		if check_num == history_array[i]:
-			return 1
-		else:
-			return 0
 	
 def collatz_conjecture(num):
 	if check(num) == 1:
@@ -29,60 +18,55 @@ def collatz_conjecture(num):
 		num = 3*num + 1
 	return num
 
-def operation(num, interval, history_depth):
+def operation(num, interval):
 	counter = 0
 	history_array = [num]
 	counter_timer = [0]
 	while True:
-		loop = loop_detector(history_array, num, history_depth, counter)
-		
 		num = collatz_conjecture(num)
 		history_array.append(num)
-		print(history_array[counter + 1])
-
-		# Temporary loop detector for 4, 2, 1 pattern
+		#print(history_array[counter + 1])
 		if num == 1:
-				print("Loop detected! .... 4, 2, 1")
-				#exit()
+				#print("Loop detected! .... 4, 2, 1")
 				counter += 1
 				counter_timer.append(counter)
-
 				return history_array, counter_timer
-
-		if loop == 1:
-			print("[+] Loop detected! .... ")
-			break
-		else:
-			pass
 		counter_timer.append(counter)
 		counter += 1
 		time.sleep(interval)
 	
-num = int(input("Enter the initial number: "))
-interval = float(input("Enter the interval to between computations: "))
+average_values_first_digit = []
+average_values_outcomes = []
 
-history_depth = 50
-outcome_array, counter_timer = operation(num, interval, history_depth)
+compute_value = 1000000
+for num in range(1,compute_value):
+	print("Computing for: " + str(num) + "    Progress: " + str(num/compute_value * 100) + "%", end="\r")
+	#print("---------------- Computing " + str(num) + " --------------------")
+	interval = 0
+	outcome_array, counter_timer = operation(num, interval)
 
-outcome_sum = 0
-for i in range(len(outcome_array)):
-	outcome_sum += outcome_array[i]
+	outcome_sum = 0
+	for i in range(len(outcome_array)):
+		outcome_sum += outcome_array[i]
 
-outcome_average = outcome_sum/len(outcome_array)
-print("Average of every outcome value: " + str(outcome_average))
+	outcome_average = outcome_sum/len(outcome_array)
+	#print("Average of every outcome value: " + str(outcome_average))
+	average_values_outcomes.append(outcome_average)
 
-# average_list = []
-# for i in range(len(counter_timer)):
-# 	average_list.append(outcome_average)
+	counter = 0
+	for num in outcome_array:
+		first_digit = int(str(num)[0])
+		counter += first_digit
 
-sum_first_digit = 0
-for num in outcome_array:
-	first_digit = int(str(num)[0])
-	sum_first_digit += first_digit
-	print(first_digit)
-print("Average of first digits: " + str(sum_first_digit/len(outcome_array)))
+	#print("Average of first digits: " + str(counter/len(outcome_array)))
+	average_values_first_digit.append(counter/len(outcome_array))
 
+# for i in range(len(average_values_first_digit)):
+# 	print(str(average_values_outcomes[i]) + "           First digit average" + str(average_values_first_digit[i]))
 
+style.use('dark_background')
+plt.plot([i for i in range(1,compute_value)], average_values_outcomes)
+plt.show()
 
 # Uncomment to plot the Graph
 # print("Average: " + str(average))
