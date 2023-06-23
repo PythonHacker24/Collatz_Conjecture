@@ -38,7 +38,7 @@ def operation(num, interval):
 average_values_first_digit = []
 average_values_outcomes = []
 
-compute_value = 99999
+compute_value = 90909
 for num in range(1,compute_value):
 	print("Computing for: " + str(num) + "    Progress: " + str(num/compute_value * 100) + "%", end="\r")
 	#print("---------------- Computing " + str(num) + " --------------------")
@@ -68,8 +68,24 @@ binaryhash = ""
 for i in average_values_outcomes:
 	binaryhash = binaryhash + str(bin(int(i)).replace("0b", ""))
 
-print(binaryhash)
+hash_file = open("hash", "w")
+hash_file.write(binaryhash)
+hash_file.close()
+
+#print(binaryhash)
 print("Length of hash: " + str(len(binaryhash)))
+
+one  = 0
+zero = 0
+
+for i in binaryhash:
+	if i == str(0):
+		zero += 1
+	elif i == str(1):
+		one += 1
+
+one_prob = one / (one + zero)
+print(one_prob)
 
 style.use('dark_background')
 plt.plot([i for i in range(1,compute_value)], average_values_outcomes)
