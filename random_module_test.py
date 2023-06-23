@@ -1,9 +1,6 @@
 import random
 
 set = ["heads", "tails"]
-
-
-
 heads = 1
 tails = 1
 
