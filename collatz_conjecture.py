@@ -62,42 +62,27 @@ num = int(input("Enter the initial number: "))
 interval = float(input("Enter the interval to between computations: "))
 
 history_depth = 50
-history_array, counter_timer = operation(num, interval, history_depth)
+outcome_array, counter_timer = operation(num, interval, history_depth)
 
-sum = 0
-for i in range(len(history_array)):
-	sum += history_array[i]
+outcome_sum = 0
+for i in range(len(outcome_array)):
+	outcome_sum += outcome_array[i]
 
-outcome_average = sum/len(history_array)
-
+outcome_average = outcome_sum/len(outcome_array)
 print("Average of every outcome value: " + str(outcome_average))
 
-average_list = []
-for i in range(len(counter_timer)):
-	average_list.append(outcome_average)
+# average_list = []
+# for i in range(len(counter_timer)):
+# 	average_list.append(outcome_average)
 
-#heads = 0
-#tails = 0
-sum = 0
-
-for num in history_array:
+sum_first_digit = 0
+for num in outcome_array:
 	first_digit = int(str(num)[0])
-	sum = sum + first_digit
+	sum_first_digit += first_digit
+	print(first_digit)
+print("Average of first digits: " + str(sum_first_digit/len(outcome_array)))
 
-print("Average of first digits: " + str(sum/len(history_array)))
 
-	# Heads and Tails logic
-	# if first_digit == 5:
-	# 	continue
-	# elif first_digit > 5:
-	# 	heads += 1
-	# elif first_digit < 5:
-	# 	tails += 1
-
-#outcomes = heads + tails
-#print("Outcomes = " + str(outcomes))
-
-#print("Heads outcomes = " + str(heads/outcomes))
 
 # Uncomment to plot the Graph
 # print("Average: " + str(average))
