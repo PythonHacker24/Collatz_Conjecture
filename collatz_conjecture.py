@@ -38,7 +38,7 @@ def operation(num, interval):
 average_values_first_digit = []
 average_values_outcomes = []
 
-compute_value = 1000000
+compute_value = 99999
 for num in range(1,compute_value):
 	print("Computing for: " + str(num) + "    Progress: " + str(num/compute_value * 100) + "%", end="\r")
 	#print("---------------- Computing " + str(num) + " --------------------")
@@ -64,9 +64,19 @@ for num in range(1,compute_value):
 # for i in range(len(average_values_first_digit)):
 # 	print(str(average_values_outcomes[i]) + "           First digit average" + str(average_values_first_digit[i]))
 
+binaryhash = ""
+for i in average_values_outcomes:
+	binaryhash = binaryhash + str(bin(int(i)).replace("0b", ""))
+
+print(binaryhash)
+print("Length of hash: " + str(len(binaryhash)))
+
 style.use('dark_background')
 plt.plot([i for i in range(1,compute_value)], average_values_outcomes)
 plt.show()
+
+
+
 
 # Uncomment to plot the Graph
 # print("Average: " + str(average))
