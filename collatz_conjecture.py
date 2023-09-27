@@ -3,14 +3,18 @@
 import time
 import matplotlib.pyplot as plt
 from matplotlib import style
-import psutil
+from numba import jit, cuda
+import timeit
+
+start = timeit.default_timer()
 
 def check(num):
 	if num % 2 == 0:
 		return 1
 	else:
 		return 0
-	
+
+# @jit(target_backend='cuda')
 def collatz_conjecture(num):
 	if check(num) == 1:
 		num = num / 2
@@ -38,9 +42,10 @@ def operation(num, interval):
 average_values_first_digit = []
 average_values_outcomes = []
 
+
 compute_value = int(input("[+] Enter the interval range from 1 to n [1, n]: "))
 for num in range(1,compute_value):
-	print("Computing for: " + str(num) + "    Progress: " + str(num/compute_value * 100) + "%", end="\r")
+	print("[+] Computing for: " + str(num) + "    Progress: " + str(num/compute_value * 100) + "%", end="\r")
 	#print("---------------- Computing " + str(num) + " --------------------")
 	interval = 0
 	outcome_array, counter_timer = operation(num, interval)
@@ -63,6 +68,10 @@ for num in range(1,compute_value):
 	#print("Average of first digits: " + str(counter/len(outcome_array)))
 	average_values_first_digit.append(counter/len(outcome_array))
 
+stop = timeit.default_timer()
+
+print("[+] Runtime of the Program:" + str(stop - start))  
+
 binaryhash = ""
 for i in average_values_outcomes:
 	binaryhash = binaryhash + str(bin(int(i)).replace("0b", ""))
@@ -71,7 +80,7 @@ hash_file = open("hash", "w")
 hash_file.write(binaryhash)
 hash_file.close()
 
-print("Length of hash: " + str(len(binaryhash)))
+print("[+] Length of hash: " + str(len(binaryhash)))
 
 one  = 0
 zero = 0
@@ -83,7 +92,7 @@ for i in binaryhash:
 		one += 1
 
 one_prob = one / (one + zero)
-print(one_prob)
+print("[+] Probability for occurance of 1 in binary hash: " + str(one_prob))
 
 # style.use('dark_background')
 # plt.plot([i for i in range(1,compute_value)], average_values_outcomes)
@@ -109,5 +118,7 @@ Notes
 1. Work upon the loop detector. The array index goes out of range due to algorithm failure.
 2. Graph ploting works! It's time to implement advance loop detection algorithm
 3. The history_array is working, work upon the loop detection algorithm.
+4. Work on seperating the computational and storage part to make the computational part run on GPU 
+5. Optmise the code to run on the GPU
 
 """
